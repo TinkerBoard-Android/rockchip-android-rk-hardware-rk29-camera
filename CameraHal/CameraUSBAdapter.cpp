@@ -993,6 +993,7 @@ int CameraUSBAdapter::reprocessFrame(FramInfo_s* frame)
                                     (unsigned char*)&outbuf, &output_len, 
     		                          (unsigned char*)frame->vir_addr, &input_len,
     		                          phy_addr);
+        frame->vir_addr_valid = false;
         if (ret < 0){
             LOGE("%s(%d): mjpeg stream is error!",__FUNCTION__,__LINE__);
 	        }
@@ -1008,10 +1009,11 @@ int CameraUSBAdapter::reprocessFrame(FramInfo_s* frame)
 							 frame->frame_width, frame->frame_height, frame->frame_width,
 							 frame->frame_width, frame->frame_height, frame->frame_width,
 							 false);
+        frame->vir_addr_valid = true;
         if (ret < 0){
             LOGE("%s(%d): yuyv convert to nv12 error!",__FUNCTION__,__LINE__);
         }
-
+	mPreviewBufProvider->flushBuffer(frame->frame_index);
     }else{
         LOGE("camerahal not support this format %d",frame->frame_fmt);
         ret =  -1;
