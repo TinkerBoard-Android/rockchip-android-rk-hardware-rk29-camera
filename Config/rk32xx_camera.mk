@@ -183,6 +183,14 @@ PRODUCT_COPY_FILES += \
     hardware/rockchip/camera/SiliconImage/isi/drv/OV5648/calib/OV5648_lens_CHT-842B-MD.xml:system/etc/OV5648_lens_CHT-842B-MD.xml \
     hardware/rockchip/camera/SiliconImage/isi/drv/OV5648/calib/OV5648_lens_XY-LE001B1.xml:system/etc/OV5648_lens_XY-LE001B1.xml \
     hardware/rockchip/camera/SiliconImage/isi/drv/OV5648/calib/OV5648_lens_CHT-842B-MD_OTP.xml:system/etc/OV5648_lens_CHT-842B-MD_OTP.xml \
+    hardware/rockchip/camera/SiliconImage/isi/drv/OV5647_tinker/calib/OV5647.xml:system/etc/OV5647.xml \
+    hardware/rockchip/camera/SiliconImage/isi/drv/OV5647_tinker/calib/OV5647_000V30-F415B-BY0A1.xml:system/etc/OV5647_000V30-F415B-BY0A1.xml \
+    hardware/rockchip/camera/SiliconImage/isi/drv/OV5647_tinker/calib/OV5647_CMK-CW2005-FV1.xml:system/etc/OV5647_CMK-CW2005-FV1.xml \
+    hardware/rockchip/camera/SiliconImage/isi/drv/OV5647_tinker/calib/OV5647_CHT-842B-MD.xml:system/etc/OV5647_CHT-842B-MD.xml \
+    hardware/rockchip/camera/SiliconImage/isi/drv/OV5647_tinker/calib/OV5647_XY-LE001B1.xml:system/etc/OV5647_XY-LE001B1.xml \
+    hardware/rockchip/camera/SiliconImage/isi/drv/OV5647_tinker/calib/OV5647_lens_CHT-842B-MD.xml:system/etc/OV5647_lens_CHT-842B-MD.xml \
+    hardware/rockchip/camera/SiliconImage/isi/drv/OV5647_tinker/calib/OV5647_lens_XY-LE001B1.xml:system/etc/OV5647_lens_XY-LE001B1.xml \
+    hardware/rockchip/camera/SiliconImage/isi/drv/OV5647_tinker/calib/OV5647_lens_CHT-842B-MD_OTP.xml:system/etc/OV5647_lens_CHT-842B-MD_OTP.xml \
     hardware/rockchip/camera/SiliconImage/isi/drv/OV13850/calib/OV13850.xml:system/etc/OV13850.xml \
     hardware/rockchip/camera/SiliconImage/isi/drv/IMX214/calib/IMX214.xml:system/etc/IMX214.xml \
     hardware/rockchip/camera/SiliconImage/isi/drv/IMX214/calib/IMX214_lens_50013A7_OTP.xml:system/etc/IMX214_lens_50013A7_OTP.xml \
