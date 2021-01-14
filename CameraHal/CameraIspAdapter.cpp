@@ -355,7 +355,17 @@ status_t CameraIspAdapter::startPreview(int preview_w,int preview_h,int w, int h
     bool is_video = false;
     rk_cam_total_info *pCamInfo = gCamInfos[mCamId].pcam_total_info;
     char res_prop[PROPERTY_VALUE_MAX];
-    
+	CamEngineFlickerPeriod_t mFlickerPeriod;
+	const char *anti_banding = mParameters.get(CameraParameters::KEY_ANTIBANDING);
+	if (anti_banding != NULL) {
+		if(!strcmp(anti_banding, "off")) {
+			mFlickerPeriod = CAM_ENGINE_FLICKER_OFF;
+		}else if(!strcmp(anti_banding, "50hz")) {
+			mFlickerPeriod = CAM_ENGINE_FLICKER_100HZ;
+		}else if(!strcmp(anti_banding, "60hz")) {
+			mFlickerPeriod = CAM_ENGINE_FLICKER_120HZ;
+		}
+	}
     property_set("sys.hdmiin.display", "0");//just used by hdmi-in
     memset(res_prop,0,sizeof(res_prop));
     property_get("sys.hdmiin.resolution",res_prop, "false");
@@ -379,7 +389,7 @@ status_t CameraIspAdapter::startPreview(int preview_w,int preview_h,int w, int h
     if (is_capture) {
         enable_flash = isNeedToEnableFlash();
 
-        m_camDevice->lock3a((CamEngine3aLock_t)(Lock_awb|Lock_aec)); 
+        m_camDevice->lock3a((CamEngine3aLock_t)(Lock_awb|Lock_aec));
     }
     low_illumin = isLowIllumin(15);
 	m_camDevice->pre2capparameter(is_capture,pCamInfo);
@@ -397,13 +407,13 @@ status_t CameraIspAdapter::startPreview(int preview_w,int preview_h,int w, int h
         float curGain,curExp; /* ddl@rock-chips.com: v1.0x15.0 */
 
         memset(&resReq, 0x00, sizeof(CamEngineBestSensorResReq_t));
-	if(!mCameraDeinterlace->is_interlace_resolution()) {
-		resReq.request_w = preview_w;
-		resReq.request_h = preview_h;
-	} else {
-		resReq.request_w = preview_w;
-		resReq.request_h = preview_h/2;
-	}
+		if(!mCameraDeinterlace->is_interlace_resolution()) {
+			resReq.request_w = preview_w;
+			resReq.request_h = preview_h;
+		} else {
+			resReq.request_w = preview_w;
+			resReq.request_h = preview_h/2;
+		}
         
         if ((m_camDevice->getIntegrationTime(curExp) == false)) {
             curExp = 0.0;
@@ -470,10 +480,15 @@ status_t CameraIspAdapter::startPreview(int preview_w,int preview_h,int w, int h
 
         mCamPreviewH = preview_h;
         mCamPreviewW = preview_w;
+
+		m_camDevice->setFlickerPeriod(mFlickerPeriod);
+		if(is_capture) {
+			m_camDevice->setIntegrationTime(curExp,curExp);
+		}
 		//start streaming
         if(-1 == start())
 			goto startPreview_end;
-		
+		if(!is_capture) m_camDevice->resetAec();
 		//set mannual exposure and mannual whitebalance
 		if(strcmp((mParameters.get(CameraParameters::KEY_EXPOSURE_COMPENSATION)), "0"))
 			setMe(mParameters.get(CameraParameters::KEY_EXPOSURE_COMPENSATION));
@@ -1540,13 +1555,23 @@ int CameraIspAdapter::cameraConfig(const CameraParameters &tmpparams,bool isInit
 	
     /*anti-banding setting*/
     const char *anti_banding = params.get(CameraParameters::KEY_ANTIBANDING);
-	const char *manti_banding = mParameters.get(CameraParameters::KEY_ANTIBANDING);
 	if (anti_banding != NULL) {
-		if ( !manti_banding || (anti_banding && strcmp(anti_banding, manti_banding)) ) {
-			//TODO
+		CamEngineFlickerPeriod_t mFlickerPeriod;
+		if(!strcmp(anti_banding, "off")) {
+			mFlickerPeriod = CAM_ENGINE_FLICKER_OFF;
+			m_camDevice->setFlickerPeriod(mFlickerPeriod);
+			LOGE("Set mFlickerPeriod off\n");
+		}else if(!strcmp(anti_banding, "50hz")) {
+			mFlickerPeriod = CAM_ENGINE_FLICKER_100HZ;
+			m_camDevice->setFlickerPeriod(mFlickerPeriod);
+			LOGE("Set mFlickerPeriod 50hz\n");
+		}else if(!strcmp(anti_banding, "60hz")) {
+			mFlickerPeriod = CAM_ENGINE_FLICKER_120HZ;
+			m_camDevice->setFlickerPeriod(mFlickerPeriod);
+			LOGE("Set mFlickerPeriod 60hz\n");
 		}
 	}
-	
+
 	/*scene setting*/
     const char *scene = params.get(CameraParameters::KEY_SCENE_MODE);
 	const char *mscene = mParameters.get(CameraParameters::KEY_SCENE_MODE);
@@ -2404,7 +2429,6 @@ void CameraIspAdapter::bufferCb( MediaBuffer_t* pMediaBuffer )
     int fmt = 0;
 	int tem_val;
 	ulong_t phy_addr=0;
-
 	bool is_even_field = true;
 	IsiSensorFrameInfo_t SensorFrameInfo;
 	Mutex::Autolock lock(mLock);

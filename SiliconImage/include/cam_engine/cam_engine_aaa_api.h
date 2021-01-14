@@ -49,8 +49,8 @@ typedef enum CamEngineAwbMode_e
     CAM_ENGINE_AWB_MODE_INVALID = 0,    /**< invalid mode (only for initialization) */
     CAM_ENGINE_AWB_MODE_MANUAL  = 1,    /**< manual mode */
     CAM_ENGINE_AWB_MODE_AUTO    = 2,    /**< run auto mode */
-    CAM_ENGINE_AWB_MODE_MANUAL_CT=3,
-    CAM_ENGINE_AWB_MODE_MAX
+	CAM_ENGINE_AWB_MODE_MANUAL_CT=3,
+	CAM_ENGINE_AWB_MODE_MAX
 } CamEngineAwbMode_t;
 
 
@@ -204,10 +204,10 @@ typedef enum CamEngine3aLock_e
 
 /*****************************************************************************/
 /**
- * @brief   This functions get the AWB temperature.
+ * @brief   This functions starts the Auto-White-Balance.
  *
  * @param   hCamEngine          Handle to the CamEngine instance.
- * @param   ct                  color temperature
+ * @param   ct              color temperature
  *
  * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         function succeed
@@ -298,17 +298,17 @@ RESULT CamEngineAwbReset
  * @return                      Return the result of the function call.
  * @retval  RET_SUCCESS         Configuration successfully applied
  * @retval  RET_WRONG_HANDLE    handle is invalid
- * @retval  RET_OUTOFRANGE      At least one perameter of out range
+ * @retval  RET_OUTOFRANGE      At least one perameter of out range 
  *
  *****************************************************************************/
 
 RESULT CamEngineAwbSetMeasuringWindow
-(
-    CamEngineHandle_t        hCamEngine,
+(   
+    CamEngineHandle_t               hCamEngine,
     int16_t                  x,
     int16_t                  y,
-    uint16_t                 width,
-    uint16_t                 height
+    uint16_t                  width,
+    uint16_t                  height  
 );
 /******************************************************************************
  * CamEngineAwbGetMeasuringWindow()
@@ -317,6 +317,7 @@ RESULT CamEngineAwbGetMeasuringWindow
 (
     CamEngineHandle_t               hCamEngine,
     CamEngineWindow_t               *pWindow
+ 
 );
 
 
@@ -553,6 +554,24 @@ RESULT CamEngineAecHistSetMeasureWinAndMode
     uint16_t                  width,
     uint16_t                  height,
     CamEngineAecHistMeasureMode_t mode
+);
+
+/******************************************************************************
+ * CamEngineAecSetFlickerPeriod()
+ * @brief   This function set the flickerperiod to aec
+ *
+ * @param   hCamEngine          Handle to the CamEngine instance.
+ * @param   flickerPeriod       CAM_ENGINE_FLICKER_OFF  CAM_ENGINE_FLICKER_100HZ CAM_ENGINE_FLICKER_120HZ    
+ *
+ * @return  Return the result of the function call.
+ * @retval  RET_SUCCESS         function succeed
+ * @retval  RET_WRONG_HANDLE    invalid instance handle
+ 
+ *****************************************************************************/
+RESULT CamEngineAecSetFlickerPeriod
+(
+    CamEngineHandle_t               hCamEngine,
+    CamEngineFlickerPeriod_t        flickerPeriod
 );
 
 /*****************************************************************************/

@@ -623,6 +623,11 @@ RESULT AecGetGridWeights
 );
 
 
+RESULT AecSetFlickerPeriod
+(
+    AecHandle_t handle,
+    AecEcmFlickerPeriod_t  FlickerPeriod
+);
 
 #ifdef __cplusplus
 }
