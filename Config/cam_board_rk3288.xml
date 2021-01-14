@@ -952,7 +952,7 @@
 					<SensorPhy phyMode="CamSys_Phy_Mipi" lane="2"  phyIndex="0" sensorFmt="CamSys_Fmt_Raw_10b"></SensorPhy>
 				</Sensor>
 				<VCM>
-					<VCMDrvName name="BuiltInSensor"></VCMDrvName>
+					<VCMDrvName name="NC"></VCMDrvName>
 					<VCMName name="NC"></VCMName>
 					<VCMI2cBusNum busnum="3"></VCMI2cBusNum>
 					<VCMI2cAddrByte byte="0"></VCMI2cAddrByte>
@@ -963,7 +963,7 @@
 					<VCMCurrent start="0" rated="100" vcmmax="100" stepmode="4"  drivermax="100"></VCMCurrent>
 				</VCM>
 				<Flash>
-					<FlashName name="Internal"></FlashName>
+					<FlashName name="NC"></FlashName>
 					<FlashI2cBusNum busnum="0"></FlashI2cBusNum>
 					<FlashI2cAddrByte byte="0"></FlashI2cAddrByte>
 					<FlashI2cRate rate="0"></FlashI2cRate>
