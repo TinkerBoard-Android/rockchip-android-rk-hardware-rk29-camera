@@ -904,6 +904,7 @@ static RESULT Sensor_SetupOutputWindowInternal
     uint16_t usLineLengthPck    = 0;
     float    rVtPixClkFreq      = 0.0f;
     int xclk = 24000000;
+    int fps = 25;
 
     TRACE( Sensor_INFO, "%s (enter)---pConfig->Resolution:%x\n", __FUNCTION__,pConfig->Resolution);
 
@@ -1024,27 +1025,32 @@ static RESULT Sensor_SetupOutputWindowInternal
 				}	
 	            usLineLengthPck = 0x0b00;
 				if (pConfig->Resolution == ISI_RES_1296_972P30) {
-	            	usFrameLengthLines = 0x03e0;
+	            	usFrameLengthLines = 0x040b;
+					fps = 30;
 				}else if(pConfig->Resolution == ISI_RES_1296_972P25) {
-					usFrameLengthLines = 0x04a6;
+					usFrameLengthLines = 0x04da;
+					fps = 25;
 				}else if(pConfig->Resolution == ISI_RES_1296_972P20) {
 					#ifdef MIPI_210MBPS
 					usFrameLengthLines = 0x03e0;
 					#else
-					usFrameLengthLines = 0x05d0;
+					usFrameLengthLines = 0x0611;
 					#endif
+					fps = 20;
 				}else if(pConfig->Resolution == ISI_RES_1296_972P15) {
 					#ifdef MIPI_210MBPS
 					usFrameLengthLines = 0x052a;
 					#else
-					usFrameLengthLines = 0x07c0;
+					usFrameLengthLines = 0x0817;
 					#endif
+					fps = 15;
 				}else if(pConfig->Resolution == ISI_RES_1296_972P10) {
 					#ifdef MIPI_210MBPS
 					usFrameLengthLines = 0x7c0;
 					#else
-					usFrameLengthLines = 0xba0;
+					usFrameLengthLines = 0xc23;
 					#endif
+					fps = 10;
 				}
 				#ifdef MIPI_210MBPS
 				pSensorCtx->IsiSensorMipiInfo.ulMipiFreq = 210;
@@ -1077,13 +1083,15 @@ static RESULT Sensor_SetupOutputWindowInternal
 				}
 	            usLineLengthPck = 0x0a8c;
 				if (pConfig->Resolution == ISI_RES_2592_1944P15) {
-					usFrameLengthLines = 0x07b6;
+					usFrameLengthLines = 0x0870;
+					fps = 15;
 				}else if(pConfig->Resolution == ISI_RES_2592_1944P7) {
 					#ifdef MIPI_210MBPS
 					usFrameLengthLines = 0x07c4;
 					#else
-					usFrameLengthLines = 0x0f6c;
+					usFrameLengthLines = 0x1215;
 					#endif
+					fps = 7;
 				}
 				#ifdef MIPI_210MBPS
 				pSensorCtx->IsiSensorMipiInfo.ulMipiFreq = 210;
@@ -1143,7 +1151,8 @@ static RESULT Sensor_SetupOutputWindowInternal
 	}
 
 	// store frame timing for later use in AEC module
-	rVtPixClkFreq = Sensor_get_PCLK(pSensorCtx, xclk);    
+	//rVtPixClkFreq = Sensor_get_PCLK(pSensorCtx, xclk);    
+	rVtPixClkFreq = (float)usLineLengthPck * (float)usFrameLengthLines * (float)fps;
     pSensorCtx->VtPixClkFreq     = rVtPixClkFreq;
     pSensorCtx->LineLengthPck    = usLineLengthPck;
     pSensorCtx->FrameLengthLines = usFrameLengthLines;	
@@ -1155,7 +1164,6 @@ static RESULT Sensor_SetupOutputWindowInternal
                         ISI_FPS_GET(pConfig->Resolution),
                         pSensorCtx->IsiSensorMipiInfo.ucMipiLanes,
                         res_no_chg,rVtPixClkFreq);
-
 
     return ( result );
 }

@@ -906,7 +906,7 @@ const IsiRegDescription_t Sensor_g_twolane_resolution_2592_1944[] =
 	//{0x0100, 0x00,"0x0100",eReadWrite},
 	//{0x3501, 0x7b,"0x0100",eReadWrite}, // exposure
 	//{0x3502, 0x00,"0x0100",eReadWrite}, // exposure
-	{0x3036, 0x64,"0x0100",eReadWrite},
+	//{0x3036, 0x64,"0x0100",eReadWrite},
 	{0x3708, 0x63,"0x0100",eReadWrite},
 	{0x3709, 0x12,"0x0100",eReadWrite},
 	{0x370c, 0xcc,"0x0100",eReadWrite},  // changed by AM05d 
@@ -970,14 +970,14 @@ const IsiRegDescription_t Sensor_g_twolane_resolution_2592_1944[] =
 //hkw;
 const IsiRegDescription_t Sensor_g_1296x972P30_twolane_fpschg[] =
 {
-	{0x380e, 0x03,"0x0100",eReadWrite},
-	{0x380f, 0xe0,"0x0100",eReadWrite},
+	{0x380e, 0x04,"0x0100",eReadWrite},
+	{0x380f, 0x0b,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 };
 const IsiRegDescription_t Sensor_g_1296x972P25_twolane_fpschg[] =
 {
 	{0x380e, 0x04,"0x0100",eReadWrite},
-	{0x380f, 0xa6,"0x0100",eReadWrite},
+	{0x380f, 0xda,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 };
 const IsiRegDescription_t Sensor_g_1296x972P20_twolane_fpschg[] =
@@ -987,8 +987,8 @@ const IsiRegDescription_t Sensor_g_1296x972P20_twolane_fpschg[] =
 	{0x380f, 0xe0,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 #else
-	{0x380e, 0x05,"0x0100",eReadWrite},
-	{0x380f, 0xd0,"0x0100",eReadWrite},
+	{0x380e, 0x06,"0x0100",eReadWrite},
+	{0x380f, 0x11,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 #endif
 };
@@ -1000,8 +1000,8 @@ const IsiRegDescription_t Sensor_g_1296x972P15_twolane_fpschg[] =
 	{0x380f, 0x2a,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 #else
-	{0x380e, 0x07,"0x0100",eReadWrite},
-	{0x380f, 0xc0,"0x0100",eReadWrite},
+	{0x380e, 0x08,"0x0100",eReadWrite},
+	{0x380f, 0x17,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 #endif
 };
@@ -1012,8 +1012,8 @@ const IsiRegDescription_t Sensor_g_1296x972P10_twolane_fpschg[] =
 	{0x380f, 0xc0,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 #else
-	{0x380e, 0x0b,"0x0100",eReadWrite},
-	{0x380f, 0xa0,"0x0100",eReadWrite},
+	{0x380e, 0x0c,"0x0100",eReadWrite},
+	{0x380f, 0x23,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 #endif
 };
@@ -1021,8 +1021,8 @@ const IsiRegDescription_t Sensor_g_1296x972P10_twolane_fpschg[] =
 
 const IsiRegDescription_t Sensor_g_2592x1944P15_twolane_fpschg[] =
 {
-	{0x380e, 0x07,"0x0100",eReadWrite},
-	{0x380f, 0xb6,"0x0100",eReadWrite},
+	{0x380e, 0x08,"0x0100",eReadWrite},
+	{0x380f, 0x70,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 };
 const IsiRegDescription_t Sensor_g_2592x1944P7_twolane_fpschg[] =
@@ -1033,8 +1033,8 @@ const IsiRegDescription_t Sensor_g_2592x1944P7_twolane_fpschg[] =
 	{0x380f, 0xc4,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 #else
-	{0x380e, 0x0f,"0x0100",eReadWrite},
-	{0x380f, 0x6c,"0x0100",eReadWrite},
+	{0x380e, 0x12,"0x0100",eReadWrite},
+	{0x380f, 0x15,"0x0100",eReadWrite},
 	{0x0000 ,0x00,"eTableEnd",eTableEnd}
 #endif
 };
