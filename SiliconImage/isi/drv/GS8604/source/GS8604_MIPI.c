@@ -398,7 +398,7 @@ static RESULT Sensor_IsiGetCapsIssInternal
                     pIsiSensorCaps->Resolution = ISI_RES_1632_1224P30;
                     break;
                 }*/
-                #if 1
+                #if 0
                 /*
 				case 4:
                 {
